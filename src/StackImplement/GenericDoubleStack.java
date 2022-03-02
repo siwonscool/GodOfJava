@@ -107,7 +107,8 @@ public class GenericDoubleStack<T> implements CustomStack<T> {
         return (dataCount < data.length / 2);
     }
 
-    private boolean isInArray(int index) {
+    @Override
+    public boolean isInArray(int index) {
         return (index < dataCount && index >= 0);
     }
 }

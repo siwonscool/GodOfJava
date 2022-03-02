@@ -3,6 +3,8 @@ package SocketCommunication;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.Hashtable;
 
 public class DatagramClient {
     public static void main(String[] args) {

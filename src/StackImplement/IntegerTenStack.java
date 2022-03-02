@@ -1,7 +1,9 @@
 package StackImplement;
 
+
 import java.util.Arrays;
 import java.util.EmptyStackException;
+import java.util.stream.IntStream;
 
 public class IntegerTenStack implements CustomStack<Integer> {
     private int[] data;
@@ -64,8 +66,9 @@ public class IntegerTenStack implements CustomStack<Integer> {
             throw new IndexOutOfBoundsException();
         }
 
-        int[] newData = Arrays.copyOf(data,dataCount - 1);
-        data = newData.clone();
+        int[] newData1 = Arrays.copyOfRange(data,0,index);
+        int[] newData2 = Arrays.copyOfRange(data,index + 1,dataCount);
+        data = IntStream.concat(IntStream.of(newData1),IntStream.of(newData2)).toArray();
 
         dataCount --;
     }
@@ -103,7 +106,8 @@ public class IntegerTenStack implements CustomStack<Integer> {
         return (data.length - dataCount > 10);
     }
 
-    private boolean isInArray(int index){
+    @Override
+    public boolean isInArray(int index){
         return (index < dataCount && index >= 0);
     }
 }

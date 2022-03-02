@@ -72,17 +72,15 @@ public class GenericTenStack<T> implements CustomStack<T>
             throw new IndexOutOfBoundsException();
         }
 
-        data[index] = null;
-
-        for (int i = index; i < dataCount - 1; i++) {
+        for (int i = index ; i < dataCount - 1; i++) {
             data[i] = data[i + 1];
         }
 
-        dataCount--;
+        data[dataCount--] = null;
     }
 
     private void decreaseCapacity() {
-        int afterCapacity = data.length - 10;
+        int afterCapacity = data.length - (10 + capacityIncrement);
         data = Arrays.copyOf(data,afterCapacity);
     }
 
@@ -111,10 +109,11 @@ public class GenericTenStack<T> implements CustomStack<T>
 
     @Override
     public boolean isSmall(){
-        return (data.length - dataCount > 10);
+        return (data.length - dataCount > 10 + capacityIncrement);
     }
 
-    private boolean isInArray(int index){
+    @Override
+    public boolean isInArray(int index){
         return (index < dataCount && index >= 0);
     }
 }
