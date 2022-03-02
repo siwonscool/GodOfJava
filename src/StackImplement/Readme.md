@@ -1,7 +1,7 @@
 나만의 Stack 구현하기 :+1: 
 --
 
-###1. Stack의 기능을 생각하며 interface 설계
+### 1. Stack의 기능을 생각하며 interface 설계
 
 * push : Stack에 데이터를 담는 메소드
 * pop : Stack에 가장 마지막으로 담긴 데이터를 삭제하는 메소드
@@ -14,7 +14,7 @@
 * removeAt : 받아온 index에 해당하는 데이터를 삭제하며 뒤에있는 데이터의 위치를 앞으로 이동시키는 메소드
 
 
- ###2. 첫번째 구현 클래스 GenericTenStack
+ ### 2. 첫번째 구현 클래스 GenericTenStack
  
  첫번째로 구현한 클래스는 타입 지정이 가능하며 담겨있는 데이터크기의 증감을 10으로 만든 GenericTenStack 이다.
  
@@ -56,7 +56,7 @@
  * size :   
  dataCount를 반환하여 현재 담긴 데이터의 수를 반환한다.
  
-  ###3. 두번째 구현 클래스 GenericDoubleStack
+  ### 3. 두번째 구현 클래스 GenericDoubleStack
   
   두번째로 구현한 클래스는 마찬가지로 타입 지정이 가능하며, 데이터 크기의 증감을 2배로 하는 GenericDoubleStack 이다.  
   
@@ -68,7 +68,7 @@
   * isSmall() 메소드의 경우 데이터가 가득찼을 시 두배 증가하므로 절반보다 작을때 true 를 반환하도록 하였다.
   
   
-  ###4. 세번째 구현 클래스 IntegerTenStack
+  ### 4. 세번째 구현 클래스 IntegerTenStack
   
   세번째로 구현한 클래스는 타입을 Integer 만 다룰수 있게 하였으며 데이터의 증감은 GenericTenStack 클래스와 일치한다.
   
