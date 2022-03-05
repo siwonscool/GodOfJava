@@ -1,8 +1,24 @@
 package MultiThread;
 
-public class ThreadSample extends Thread{
+public class ThreadSample extends Thread {
+    public ThreadSample() {
+        super();
+    }
+
+    public ThreadSample(ThreadGroup group, String name) {
+        super(group, name);
+    }
+
     @Override
     public void run() {
-        System.out.println("ThreadSample의 run 메소드");
+        while (true){
+            try {
+                Thread.sleep(1000);
+            }catch (InterruptedException e){
+                System.out.println(getName() + " : interrupted");
+                break;
+            }
+        }
+        System.out.println(getName() + "종료됨");
     }
 }
