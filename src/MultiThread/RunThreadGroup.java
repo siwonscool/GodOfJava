@@ -9,7 +9,7 @@ public class RunThreadGroup {
         t1.start();
         t2.start();
 
-        System.out.println("[ main 스레드 그룹 ]");
+        System.out.println("[ main 스레드 그룹을 호출합니다 ]");
         ThreadGroup mainGroup = Thread.currentThread().getThreadGroup();
         mainGroup.list();
 
@@ -18,7 +18,7 @@ public class RunThreadGroup {
         }catch (InterruptedException e){
         }
 
-        System.out.println("[ main 스레드그룹의 interrupted 호출 ]");
+        System.out.println("[ main 스레드그룹의 interrupted 호출합니다 ]");
         threadGroup.interrupt();
     }
 }
