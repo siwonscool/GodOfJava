@@ -7,17 +7,17 @@ public class ArrayQueue<T> implements CustomQueue<T>{
 
     private static final int front = 0;
     private int tail;
-    private int queueSize;
+    private int dataSize;
     private T[] data;
 
     public ArrayQueue() {
         this(10);
     }
 
-    public ArrayQueue(int queueSize) {
-        this.queueSize = queueSize;
+    public ArrayQueue(int dataSize) {
+        this.dataSize = dataSize;
         this.tail = 0;
-        data = (T[]) new Object[queueSize];
+        data = (T[]) new Object[dataSize];
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ArrayQueue<T> implements CustomQueue<T>{
     @Override
     public T dequeue() {
         if(isEmpty()){
-            throw new EmptyQueueException("현재 큐가 비어있습니다.");
+            throw new EmptyQueueException("큐가 비어있습니다.");
         }
 
         T deleteData = peek();
@@ -69,8 +69,8 @@ public class ArrayQueue<T> implements CustomQueue<T>{
 
     @Override
     public void removeAt(int index) {
-        if (isInArray(index)){
-            throw new OutOfQueueException("현재 저장된 큐의 범위를 초과하였습니다.");
+        if (isInQueueRange(index)){
+            throw new OutOfQueueException("저장된 큐의 범위를 초과하였습니다.");
         }
 
         T[] newData1 = Arrays.copyOfRange(data, front, index);
@@ -81,9 +81,6 @@ public class ArrayQueue<T> implements CustomQueue<T>{
         tail--;
     }
 
-    private boolean isInArray(int index) {
-        return (index >= front) && (index < tail);
-    }
 
     private boolean isSmall() {
         return size() < data.length / 2;
@@ -96,7 +93,14 @@ public class ArrayQueue<T> implements CustomQueue<T>{
 
     @Override
     public T peek() {
-        return data[front];
+        return search(front);
+    }
+
+    public T search(int index) {
+        if (isInQueueRange(index)){
+            throw new OutOfQueueException("저장된 큐의 범위를 초과하였습니다.");
+        }
+        return data[index];
     }
 
     @Override
@@ -109,8 +113,12 @@ public class ArrayQueue<T> implements CustomQueue<T>{
         return tail == front;
     }
 
-    @Override
     public boolean isFull() {
-        return tail == queueSize;
+        return tail == dataSize;
+    }
+
+    @Override
+    public boolean isInQueueRange(int index) {
+        return (index >= front) && (index < tail);
     }
 }

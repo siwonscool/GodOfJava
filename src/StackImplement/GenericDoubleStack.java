@@ -27,13 +27,13 @@ public class GenericDoubleStack<T> implements CustomStack<T> {
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE;
 
     private void growCapacity() {
-        int afterCapacity = data.length * 2;
+        /*int afterCapacity = data.length * 2;
 
         if (afterCapacity > MAX_ARRAY_SIZE) {
             afterCapacity = hugeCapacity(afterCapacity);
         }
 
-        data = Arrays.copyOf(data, afterCapacity);
+        data = Arrays.copyOf(data, afterCapacity);*/
     }
 
     private int hugeCapacity(int afterCapacity) {

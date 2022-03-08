@@ -6,6 +6,6 @@ public interface CustomQueue<T> {
     T peek();
     int size();
     boolean isEmpty();
-    boolean isFull();
+    boolean isInQueueRange(int index);
     void removeAt(int index);
 }
