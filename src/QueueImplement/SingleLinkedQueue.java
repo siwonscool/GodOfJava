@@ -28,13 +28,12 @@ public class SingleLinkedQueue<T> implements CustomQueue<T>{
         }
 
         Node<T> lastNode = search(queueSize - 1);
-        //System.out.println(queueSize - 1 +" index : " + lastNode.data);
         lastNode.nextNode = new Node<>(obj,null);
         queueSize ++;
         return obj;
     }
 
-    public void addFirst(T obj) {
+    private void addFirst(T obj) {
         if (head == null){
             head = new Node<>(obj,null);
             queueSize ++;
