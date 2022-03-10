@@ -27,14 +27,31 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
     @Override
     public T enqueue(T obj) {
         if(isEmpty()){
-            addFirst();
+            addFirst(obj);
+            return obj;
         }
 
+        Node<T> lastNode = search(queueSize - 1);
+        Node<T> newNode = new Node<>(obj,lastNode,null);
+        lastNode.nextNode = newNode;
+        tail = newNode;
+        queueSize ++;
 
         return obj;
     }
 
-    private void addFirst() {
+    private void addFirst(T obj) {
+        if (head == null){
+            head = new Node<>(obj,null,null);
+            tail = head;
+            queueSize++;
+            return;
+        }
+
+        Node<T> prevHead = head;
+        head = new Node<>(obj,null,prevHead);
+        prevHead.prevNode = head;
+        queueSize++;
     }
 
     @Override
