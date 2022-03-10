@@ -28,26 +28,23 @@ public class SingleLinkedQueue<T> implements CustomQueue<T>{
         }
 
         Node<T> lastNode = search(queueSize - 1);
+        //System.out.println(queueSize - 1 +" index : " + lastNode.data);
         lastNode.nextNode = new Node<>(obj,null);
-        System.out.println("enqueue 전 큐 size() : " + size());
-        queueSize = queueSize + 1;
-        System.out.println("enqueue 후 연산 후 큐 size() : " + size());
+        queueSize ++;
         return obj;
     }
 
     public void addFirst(T obj) {
         if (head == null){
             head = new Node<>(obj,null);
-            queueSize++;
+            queueSize ++;
             return;
         }
 
         Node<T> prevHead = head;
         head = new Node<>(obj,prevHead);
 
-        System.out.println("addFirst 전 큐 size() : " + size());
-        queueSize = queueSize + 1;
-        System.out.println("addFirst 후 큐 size() : " + size());
+        queueSize ++;
     }
 
     @Override
@@ -68,7 +65,7 @@ public class SingleLinkedQueue<T> implements CustomQueue<T>{
             throw new EmptyQueueException("큐가 비어있습니다.");
         }
 
-        if (isInQueueRange(index)){
+        if (!isInQueueRange(index)){
             throw new OutOfQueueException("저장된 큐의 범위를 초과하였습니다.");
         }
 
@@ -83,7 +80,7 @@ public class SingleLinkedQueue<T> implements CustomQueue<T>{
 
         //deleteData 는 GC의 대상이 되는가?
         prevDeleteData.nextNode = nextDeleteData;
-        queueSize = queueSize - 1;
+        queueSize --;
     }
 
     public void removeFirst(){
@@ -93,7 +90,8 @@ public class SingleLinkedQueue<T> implements CustomQueue<T>{
 
         //기존의 head 는 GC의 대상이 되는가?
         head = head.nextNode;
-        queueSize = queueSize - 1;
+        queueSize --;
+
     }
 
     @Override
@@ -101,18 +99,18 @@ public class SingleLinkedQueue<T> implements CustomQueue<T>{
         return head.data;
     }
 
-    public Node<T> search(int index) {
+    private Node<T> search(int index) {
         if (isEmpty()){
             throw new EmptyQueueException("큐가 비어있습니다.");
         }
 
-        if (isInQueueRange(index)){
+        if (!isInQueueRange(index)){
             throw new OutOfQueueException("저장된 큐의 범위를 초과하였습니다.");
         }
 
         Node<T> searchNode = head;
 
-        for (int i = 0; i < index + 1; i++) {
+        for (int i = 0; i < index; i++) {
             searchNode = searchNode.nextNode;
         }
 
