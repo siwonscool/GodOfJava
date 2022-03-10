@@ -33,35 +33,65 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
 
         Node<T> lastNode = search(queueSize - 1);
         Node<T> newNode = new Node<>(obj,lastNode,null);
+
         lastNode.nextNode = newNode;
         tail = newNode;
+
         queueSize ++;
 
         return obj;
     }
 
-    private void addFirst(T obj) {
+    public void addFirst(T obj) {
         if (head == null){
-            head = new Node<>(obj,null,null);
-            tail = head;
+            Node<T> newHead = new Node<>(obj,null,null);
+
+            head = newHead;
+            tail = newHead;
             queueSize++;
             return;
         }
 
         Node<T> prevHead = head;
-        head = new Node<>(obj,null,prevHead);
-        prevHead.prevNode = head;
+        Node<T> newHead = new Node<>(obj,null,prevHead);
+
+        head = newHead;
+        prevHead.prevNode = newHead;
+        tail = prevHead;
+
         queueSize++;
     }
 
     @Override
     public T dequeue() {
-        return null;
+        if (isEmpty()){
+            throw new EmptyQueueException("큐가 비어있습니다.");
+        }
+
+        T deleteData = peek();
+        removeAt(0);
+
+        return deleteData;
     }
 
     @Override
     public void removeAt(int index) {
+        if (isEmpty()){
+            throw new EmptyQueueException("큐가 비어있습니다.");
+        }
 
+        if (!isInQueueRange(index)){
+            throw new OutOfQueueException("저장된 큐의 범위를 초과하였습니다.");
+        }
+
+        Node<T> currentNode = search(index);
+        Node<T> prevNode = currentNode.prevNode;
+        Node<T> nextNode = currentNode.nextNode;
+
+        prevNode.nextNode = nextNode;
+        nextNode.prevNode = prevNode;
+
+        queueSize --;
     }
 
     @Override
@@ -70,8 +100,37 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
     }
 
     private Node<T> search(int index){
-        return head;
+        if (isInHalf(index)){
+            return searchToFirst(index);
+        }else {
+            return searchToLast(index);
+        }
     }
+
+    private boolean isInHalf(int index) {
+        return index / queueSize < 0.5 ;
+    }
+
+    private Node<T> searchToFirst(int index) {
+        Node<T> searchNode = head;
+
+        for (int i = 0; i < index; i++) {
+            searchNode = searchNode.nextNode;
+        }
+
+        return searchNode;
+    }
+
+    private Node<T> searchToLast(int index) {
+        Node<T> searchNode = tail;
+
+        for (int i = queueSize - 1; i > index; i--) {
+            searchNode = searchNode.prevNode;
+        }
+
+        return searchNode;
+    }
+
 
     @Override
     public int size() {

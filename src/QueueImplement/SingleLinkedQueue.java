@@ -33,7 +33,7 @@ public class SingleLinkedQueue<T> implements CustomQueue<T>{
         return obj;
     }
 
-    private void addFirst(T obj) {
+    public void addFirst(T obj) {
         if (head == null){
             head = new Node<>(obj,null);
             queueSize ++;
@@ -88,7 +88,8 @@ public class SingleLinkedQueue<T> implements CustomQueue<T>{
         }
 
         //기존의 head 는 GC의 대상이 되는가?
-        head = head.nextNode;
+        Node<T> newHead = head.nextNode;
+        head = newHead;
         queueSize --;
 
     }
