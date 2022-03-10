@@ -57,7 +57,6 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
 
         head = newHead;
         prevHead.prevNode = newHead;
-        tail = prevHead;
 
         queueSize++;
     }
@@ -84,6 +83,11 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
             throw new OutOfQueueException("저장된 큐의 범위를 초과하였습니다.");
         }
 
+        if (index == 0){
+            removeFirst();
+            return;
+        }
+
         Node<T> currentNode = search(index);
         Node<T> prevNode = currentNode.prevNode;
         Node<T> nextNode = currentNode.nextNode;
@@ -92,6 +96,17 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
         nextNode.prevNode = prevNode;
 
         queueSize --;
+    }
+
+    public void removeFirst() {
+        if (isEmpty()){
+            throw new EmptyQueueException("큐가 비어있습니다.");
+        }
+
+        Node<T> newHead = head.nextNode;
+        head = newHead;
+
+        queueSize--;
     }
 
     @Override

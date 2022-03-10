@@ -2,7 +2,7 @@ package QueueImplement;
 
 public class Main {
     public static void main(String[] args) {
-        SingleLinkedQueue<String> sn = new SingleLinkedQueue<>();
+/*        SingleLinkedQueue<String> sn = new SingleLinkedQueue<>();
         sn.enqueue("gg");
         sn.enqueue("aa");
         sn.enqueue("bb");
@@ -15,15 +15,22 @@ public class Main {
         System.out.println("removeAt 1 후 크기 : "+sn.size());
         System.out.println(sn.peek());
         sn.removeFirst();
-        System.out.println("-------check-------");
+        System.out.println("-------check-------");*/
 
-/*        DoublyLinkedQueue<String> dl = new DoublyLinkedQueue<>();
+        DoublyLinkedQueue<String> dl = new DoublyLinkedQueue<>();
         dl.enqueue("ss");
         dl.enqueue("qq");
         dl.enqueue("ee");
         dl.enqueue("ww");
         dl.addFirst("aa");
-        System.out.println("------check------");*/
+        System.out.println("------check------");
+
+        System.out.println(dl.dequeue());
+
+        System.out.println(dl.peek());
+        System.out.println("------check------");
+
+
 
     }
 }
