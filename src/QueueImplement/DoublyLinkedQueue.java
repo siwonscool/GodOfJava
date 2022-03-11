@@ -68,13 +68,15 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
         }
 
         T deleteData = peek();
-        removeAt(0);
+        removeFirst();
 
         return deleteData;
     }
 
     @Override
     public void removeAt(int index) {
+
+        //search() 메소드에서 중복되는 예외처리를 해야할 필요가 있는가?
         if (isEmpty()){
             throw new EmptyQueueException("큐가 비어있습니다.");
         }
@@ -83,20 +85,35 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
             throw new OutOfQueueException("저장된 큐의 범위를 초과하였습니다.");
         }
 
-        if (index == 0){
+        Node<T> currentNode = search(index);
+
+        if (isPrevNodeNull(currentNode)){
             removeFirst();
             return;
         }
 
-        Node<T> currentNode = search(index);
         Node<T> prevNode = currentNode.prevNode;
         Node<T> nextNode = currentNode.nextNode;
 
         prevNode.nextNode = nextNode;
-        nextNode.prevNode = prevNode;
+
+        if (isNextNodeNull(currentNode)){
+            tail = prevNode;
+        }else {
+            nextNode.prevNode = prevNode;
+        }
 
         queueSize --;
     }
+
+    private boolean isPrevNodeNull(Node<T> node) {
+        return node.prevNode == null;
+    }
+
+    private boolean isNextNodeNull(Node<T> node) {
+        return node.nextNode == null;
+    }
+
 
     public void removeFirst() {
         if (isEmpty()){
@@ -104,6 +121,11 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
         }
 
         Node<T> newHead = head.nextNode;
+
+        if (!isNextNodeNull(head)){
+            newHead.prevNode = null;
+        }
+
         head = newHead;
 
         queueSize--;
@@ -115,6 +137,14 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
     }
 
     private Node<T> search(int index){
+        if (isEmpty()){
+            throw new EmptyQueueException("큐가 비어있습니다.");
+        }
+
+        if (!isInQueueRange(index)){
+            throw new OutOfQueueException("저장된 큐의 범위를 벗어났습니다.");
+        }
+
         if (isInHalf(index)){
             return searchToFirst(index);
         }else {
@@ -145,7 +175,6 @@ public class DoublyLinkedQueue<T> implements CustomQueue<T>{
 
         return searchNode;
     }
-
 
     @Override
     public int size() {

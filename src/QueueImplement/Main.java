@@ -24,9 +24,10 @@ public class Main {
         dl.enqueue("ww");
         dl.addFirst("aa");
         System.out.println("------check------");
+        //System.out.println(dl.dequeue());
 
-        System.out.println(dl.dequeue());
-
+        dl.removeAt(3);
+        dl.enqueue("ff");
         System.out.println(dl.peek());
         System.out.println("------check------");
 
