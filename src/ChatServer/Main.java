@@ -53,7 +53,6 @@ public class Main extends Application {
                         * accept() 메소드를 호출하여 원격 호출을 대기하는 상태
                         * */
                         Socket socket = serverSocket.accept();
-
                         clients.add(new Client(socket));
                         System.out.println("클라이언트 접속 " + socket.getRemoteSocketAddress() + " : " + Thread.currentThread());
                     }catch (Exception e){
