@@ -5,7 +5,8 @@ public interface CustomQueue<T> {
     T dequeue();
     T peek();
     int size();
+    void removeAt(int index);
+    void removeFirst();
     boolean isEmpty();
     boolean isInQueueRange(int index);
-    void removeAt(int index);
 }

@@ -76,7 +76,7 @@ public class GenericTenStack<T> implements CustomStack<T>
             data[i] = data[i + 1];
         }
 
-        data[dataCount--] = null;
+        data[--dataCount] = null;
     }
 
     private void decreaseCapacity() {
