@@ -31,7 +31,6 @@ public class Problem2 {
                 .map(it -> it.substring(0,1))
                 .collect(Collectors.joining(" "));
 
-
         System.out.println("String : "+str);
     }
 
