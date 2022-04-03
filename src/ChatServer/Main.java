@@ -26,7 +26,7 @@ public class Main extends Application {
     public static ExecutorService threadPool;
     /*
     * 멀테 쓰레드 환경에서 안전하지 못한 ArrayList 대신
-    * 멀티 쓰레드 환경에서 안전하게 동기화가 가능한 Vector 클래스 사용
+    * 멀티 쓰레드 환경에서 안전하게 동기화가 가능한 ConcurrentHashMap 클래스 사용
     * */
     public static Map<Client, InetAddress> clients = new ConcurrentHashMap<>();
     ServerSocket serverSocket;
