@@ -9,11 +9,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -27,7 +28,7 @@ public class Main extends Application {
     * 멀테 쓰레드 환경에서 안전하지 못한 ArrayList 대신
     * 멀티 쓰레드 환경에서 안전하게 동기화가 가능한 Vector 클래스 사용
     * */
-    public static Vector<Client> clients = new Vector<>();
+    public static Map<Client, InetAddress> clients = new ConcurrentHashMap<>();
     ServerSocket serverSocket;
 
     public void startServer(String ip, int port){
@@ -53,7 +54,7 @@ public class Main extends Application {
                         * accept() 메소드를 호출하여 원격 호출을 대기하는 상태
                         * */
                         Socket socket = serverSocket.accept();
-                        clients.add(new Client(socket));
+                        clients.put(new Client(socket),socket.getInetAddress());
                         System.out.println("클라이언트 접속 " + socket.getRemoteSocketAddress() + " : " + Thread.currentThread());
                     }catch (Exception e){
                         e.printStackTrace();
@@ -78,9 +79,9 @@ public class Main extends Application {
             /*
             * 현재 작동중인 모든 소켓 종료
             * */
-            Iterator<Client> clientIterator = clients.iterator();
+            Iterator<Map.Entry<Client, InetAddress>> clientIterator = clients.entrySet().iterator();
             while (clientIterator.hasNext()){
-                Client client = clientIterator.next();
+                Client client = (Client) clientIterator.next();
                 client.socket.close();
                 clientIterator.remove();
             }

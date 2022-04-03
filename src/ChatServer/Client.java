@@ -3,7 +3,9 @@ package ChatServer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Map;
 
 public class Client {
     Socket socket;
@@ -46,8 +48,8 @@ public class Client {
                         /*
                         * 서버에서 메세지를 받으면 접속중인 사용자들 에게 전부 메세지 전송
                         * */
-                        for (Client client: Main.clients) {
-                            client.send(msg);
+                        for (Map.Entry<Client, InetAddress> client: Main.clients.entrySet()) {
+                            client.getKey().send(msg);
                         }
                     }
                 }catch (Exception e){
